@@ -1,0 +1,19 @@
+1. Extract the contents of this .zip
+	
+2.
+	Windows: Double click RUN_WINDOWS.bat
+	Linux/Mac: Double click RUN_LINUX_MACOS.sh
+	You need to have Python installed. Windows might even automatically prompt you for it
+	
+3. Go to http://localhost:8000/ with a browser (copy and paste into address bar)
+
+4. Follow the instructions in game
+
+
+
+
+
+NOTES:
+- The game uses your webcam, but will not display it unless you check a checkbox
+- The game does not collect or send any information to me
+- There is an issue where the audio crackles after a while, so mute the audio after that point; this seems to be a problem with the audio API
