@@ -23,6 +23,18 @@ class GUITutorial extends GUIObject {
         fill(textColor);
         text("Press Q to skip the tutorial at any time", 10, height-15);
 
+        textSize(10);
+        fill(255, 255, 255, 80);
+        let creditX = width-220;
+        let creditY = height;
+        text("CREDITS", creditX, creditY-91);
+        text("Fonts: G-Type by Gomarice Font", creditX, creditY-78);
+        text("Sound Effects, Art: Kenney Game Assets", creditX, creditY-65);
+        text("Music: YouTube Copyright-Free Music Library", creditX, creditY-52);
+        text("  Above Planets - Patrick Patrikios", creditX, creditY-39);
+        text("  Cages - Density & Time", creditX, creditY-26);
+        text("  Lost Constructs - White Hex", creditX, creditY-13);
+
         pop();
 
         //if the player decides to skip the tutorial...
@@ -167,7 +179,7 @@ class MovementTutorial extends TutorialComponent {
     constructor(depth){
         super("MovementTutorial",0,0,depth);
 
-        this.welcomeTimer = 8000;
+        this.welcomeTimer = 7000;
         this.welcomeCounter = this.welcomeTimer;
 
         this.movementTimer = 15000;

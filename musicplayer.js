@@ -17,9 +17,14 @@ class MusicPlayer{
         musicTracks.push(music_LostConstructs);
 
         currentTrack = MusicPlayer.pickRandomTrack();
+
+        /*
+        currentTrack = MusicPlayer.pickRandomTrack();
         currentTrack.setVolume(0.4);
         currentTrack.play();
+        */
 
+        this.isFirstTimePickingMusic = true;
     }
 
     
@@ -28,12 +33,24 @@ class MusicPlayer{
             currentTrack=null;
         }
         if(currentTrack==null){
-            currentTrack = MusicPlayer.pickRandomTrack();
-            currentTrack.play();
-            console.log("picking new track");
+            if(this.isFirstTimePickingMusic){
+                currentTrack = music_Cages; //this is always the first track played
+            } else {
+                currentTrack = MusicPlayer.pickRandomTrack();
+                console.log("picking new track");
+            }
+            currentTrack.setVolume(0.4);
+            var response = currentTrack.play();
+            if (response!== undefined) {
+                response.then(_ => {
+                    //the sound should start playing
+                    this.isFirstTimePickingMusic = false;
+                }).catch(error => {
+                    //simply handle the rror
+                });
+            }
         }
     }
-    
 
     static pickRandomTrack(){
         let i = Math.floor(random(0, musicTracks.length));

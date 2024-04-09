@@ -1,6 +1,15 @@
 //@ts-check
 
 /*
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+*/
+
+/*
  * Asset preloads
  */
 var font_gType;
@@ -46,6 +55,61 @@ var sfx_highLaser;
 
 var sfx_gameover;
 
+//use default browser Audio API instead of p5's sound API which crackles after some time 
+class ConcurrentSound {
+  constructor(path){
+    this.path = path;
+    this.volume = 1.0;
+
+    this.playingSound = null;
+  }
+
+  play(){
+    let a = new Audio(this.path);
+    a.volume = this.volume;
+
+    this.playingSound = a;
+
+    /*
+    a.addEventListener("ended", onSoundEnd);
+    function onSoundEnd(){
+      this.isPlaying_ = false;
+      this.sound = null;
+    }
+    */
+    
+    var response = a.play();
+    if (response!== undefined) {
+        response.then(_ => {
+          //nothing, the sound should start playing
+        }).catch(error => {
+          //simply handle the rror
+        });
+    }
+  }
+
+  isPlaying(){
+    if(this.playingSound != null){
+      return !(this.playingSound.paused);
+    } 
+    return false;
+  }
+
+  stop(){
+    if(this.playingSound != null){
+      this.playingSound.pause();
+      this.playingSound.currentTime = 0;
+    }
+  }
+
+  setVolume(vol){
+    this.volume = vol;
+  }
+}
+
+function loadSoundPatched(path){
+  return new ConcurrentSound(path);
+}
 
 function preload(){
   font_gType = loadFont("resources/GType-rGX9.ttf");
@@ -57,29 +121,29 @@ function preload(){
   png_ShootingEnemy = loadImage("resources/sprites/ShootingEnemy.png");
   png_StandardEnemy = loadImage("resources/sprites/StandardEnemy.png");
 
-  music_AbovePlanets = loadSound("resources/music/AbovePlanets.mp3");
-  music_Cages = loadSound("resources/music/Cages.mp3");
-  music_LostConstructs = loadSound("resources/music/LostConstructs.mp3");
+  music_AbovePlanets = loadSoundPatched("resources/music/AbovePlanets.mp3");
+  music_Cages = loadSoundPatched("resources/music/Cages.mp3");
+  music_LostConstructs = loadSoundPatched("resources/music/LostConstructs.mp3");
 
-  sfx_explosion1 = loadSound("resources/sounds/explosion1.mp3");
+  sfx_explosion1 = loadSoundPatched("resources/sounds/explosion1.mp3");
   sfx_explosion1.setVolume(0.5);
-  sfx_explosion2 = loadSound("resources/sounds/explosion2.mp3");
+  sfx_explosion2 = loadSoundPatched("resources/sounds/explosion2.mp3");
   sfx_explosion2.setVolume(0.5);
-  sfx_explosion3 = loadSound("resources/sounds/explosion3.mp3");
+  sfx_explosion3 = loadSoundPatched("resources/sounds/explosion3.mp3");
   sfx_explosion3.setVolume(0.5);
   sfxs_explosion.push(sfx_explosion1);
   sfxs_explosion.push(sfx_explosion2);
   sfxs_explosion.push(sfx_explosion3);
 
-  sfx_forcefield1 = loadSound("resources/sounds/forcefield1.mp3");
+  sfx_forcefield1 = loadSoundPatched("resources/sounds/forcefield1.mp3");
   sfx_forcefield1.setVolume(0.4);
-  sfx_forcefield2 = loadSound("resources/sounds/forcefield2.mp3");
+  sfx_forcefield2 = loadSoundPatched("resources/sounds/forcefield2.mp3");
   sfx_forcefield2.setVolume(0.4);
-  sfx_forcefield3 = loadSound("resources/sounds/forcefield3.mp3");
+  sfx_forcefield3 = loadSoundPatched("resources/sounds/forcefield3.mp3");
   sfx_forcefield3.setVolume(0.4);
-  sfx_forcefield4 = loadSound("resources/sounds/forcefield4.mp3");
+  sfx_forcefield4 = loadSoundPatched("resources/sounds/forcefield4.mp3");
   sfx_forcefield4.setVolume(0.4);
-  sfx_forcefield5 = loadSound("resources/sounds/forcefield5.mp3");
+  sfx_forcefield5 = loadSoundPatched("resources/sounds/forcefield5.mp3");
   sfx_forcefield5.setVolume(0.4);
   sfxs_forcefield.push(sfx_forcefield1);
   sfxs_forcefield.push(sfx_forcefield2);
@@ -87,15 +151,15 @@ function preload(){
   sfxs_forcefield.push(sfx_forcefield4);
   sfxs_forcefield.push(sfx_forcefield5);
 
-  sfx_hit1 = loadSound("resources/sounds/hit1.mp3");
+  sfx_hit1 = loadSoundPatched("resources/sounds/hit1.mp3");
   sfx_hit1.setVolume(0.2);
-  sfx_hit2 = loadSound("resources/sounds/hit2.mp3");
+  sfx_hit2 = loadSoundPatched("resources/sounds/hit2.mp3");
   sfx_hit2.setVolume(0.2);
-  sfx_hit3 = loadSound("resources/sounds/hit3.mp3");
+  sfx_hit3 = loadSoundPatched("resources/sounds/hit3.mp3");
   sfx_hit3.setVolume(0.2);
-  sfx_hit4 = loadSound("resources/sounds/hit4.mp3");
+  sfx_hit4 = loadSoundPatched("resources/sounds/hit4.mp3");
   sfx_hit4.setVolume(0.2);
-  sfx_hit5 = loadSound("resources/sounds/hit5.mp3");
+  sfx_hit5 = loadSoundPatched("resources/sounds/hit5.mp3");
   sfx_hit5.setVolume(0.2);
   sfxs_hit.push(sfx_hit1);
   sfxs_hit.push(sfx_hit2);
@@ -103,24 +167,24 @@ function preload(){
   sfxs_hit.push(sfx_hit4);
   sfxs_hit.push(sfx_hit5);
 
-  sfx_hurt1 = loadSound("resources/sounds/hurt1.mp3");
+  sfx_hurt1 = loadSoundPatched("resources/sounds/hurt1.mp3");
   sfx_hurt1.setVolume(0.3);
-  sfx_hurt2 = loadSound("resources/sounds/hurt2.mp3");
+  sfx_hurt2 = loadSoundPatched("resources/sounds/hurt2.mp3");
   sfx_hurt2.setVolume(0.8);
-  sfx_hurt3 = loadSound("resources/sounds/hurt3.mp3");
+  sfx_hurt3 = loadSoundPatched("resources/sounds/hurt3.mp3");
   sfx_hurt3.setVolume(0.3);
   sfxs_hurt.push(sfx_hurt1);
   sfxs_hurt.push(sfx_hurt2);
   sfxs_hurt.push(sfx_hurt3);
 
-  sfx_lowLaser = loadSound("resources/sounds/lowLaser.mp3");
+  sfx_lowLaser = loadSoundPatched("resources/sounds/lowLaser.mp3");
   sfx_lowLaser.setVolume(0.8);
-  sfx_mediumLaser = loadSound("resources/sounds/mediumLaser.mp3");
+  sfx_mediumLaser = loadSoundPatched("resources/sounds/mediumLaser.mp3");
   sfx_mediumLaser.setVolume(0.8);
-  sfx_highLaser = loadSound("resources/sounds/highLaser.mp3");
+  sfx_highLaser = loadSoundPatched("resources/sounds/highLaser.mp3");
   sfx_highLaser.setVolume(0.8);
 
-  sfx_gameover = loadSound("resources/sounds/gameover.mp3");
+  sfx_gameover = loadSoundPatched("resources/sounds/gameover.mp3");
   
 }
 
@@ -217,10 +281,6 @@ function draw() {
   return;
   */
 
-  cullNonPlayingSounds();
-
-  MusicPlayer.update();
-
   //updates state var which is the main way the program determines what should be running
   updateStateMachine();
   
@@ -235,6 +295,9 @@ function draw() {
   //these two must come after otherwise they get overridden
   //debugDisplayState();
   //debugDisplayFPS();
+
+  cullNonPlayingSounds();
+  MusicPlayer.update();
 
   updateStaticVariables();//should come last
 
