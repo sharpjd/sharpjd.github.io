@@ -9,12 +9,14 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <!--<script src="libraries/p5.min.js"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>-->
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <!--<script src="libraries/p5.sound.min.js"></script>-->
-    <script src="libraries/p5.min.js"></script>
+    <!--<script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>-->
+    <!--<script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>-->
+    <script src="libraries/p5.js"></script>
+    <script src="libraries/ml5.min.js"></script>
     <script src="libraries/p5.sound.min.js"></script>
+    <!--<script src="libraries/p5.min.js"></script>-->
     <script src="gameobject.js"></script>
     <script src="movement.js"></script>
     <script src="collider.js"></script>
@@ -22,8 +24,9 @@
     <script src="world.js"></script>
     <script src="gui.js"></script>
     <script src="guiobject.js"></script>
-    <script src="spawner.js"></script>
+    <script src="gameobjects/spawner.js"></script>
     <script src="musicplayer.js"></script>
+    <script src="testgameobject.js"></script>
     <script src="guiobjects/gamegui.js"></script>
     <script src="guiobjects/guiloadingscreen.js"></script>
     <script src="guiobjects/guicalibrationmenu.js"></script>
@@ -31,7 +34,6 @@
     <script src="guiobjects/guiboundarywarning.js"></script>
     <script src="guiobjects/guitutorial.js"></script>
     <script src="gameobjects/videofeed.js"></script>
-    <script src="gameobjects/testgameobject.js"></script>
     <script src="gameobjects/projectile.js"></script>
     <script src="gameobjects/playerprojectile.js"></script>
     <script src="gameobjects/laser.js"></script>
@@ -43,19 +45,24 @@
     <script src="gameobjects/laserenemy.js"></script>
     <script src="gameobjects/annoyingenemy.js"></script>
     <script src="gameobjects/enemyprojectile.js"></script>
-    <script src="gameobjects/spawner.js"></script>
     <script src="gameobjects/bg.js"></script>
     
+	<script src="sketch.js"></script>
   </head>
 
   <body>
-	<script src="sketch.js"></script>
-	<main></main>
+	<div>
+		<main>
+		</main>
+	</div>
+	
 	<div>
 		<p>NOTES:</p>
 		<p>- The game uses your webcam, but will not display it unless you check a checkbox</p>
 		<p>- The game does not collect or send any information to me</p>
-		<p>- There is an issue where the audio crackles after a while, so mute the audio after that point; this seems to be a problem with the audio API</p>
+		<p>- Credits can be found within the tutorial</p>
+		<p>- The game can be performance heavy, try different browsers like Chrome</p>
 	</div>
+	
   </body>
 </html>
