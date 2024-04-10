@@ -505,7 +505,15 @@ function updateStateMachine() {
 
       playGameoverOnce=false;
       //World.instance.player.supressShooting=false;
-      state = "Playing";
+      //state = "Playing";
+
+      tutorial.slatedForDeletion = true;
+
+      tutorial = new GUITutorial();
+      GUI.instance.addGuiObject(tutorial);
+      state="Tutorial";
+
+      state = "Tutorial";
     }
   }
 
