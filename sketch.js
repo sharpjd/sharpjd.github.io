@@ -293,7 +293,7 @@ function draw() {
   gui.update(); //GUI is excluded from pausing
 
   //these two must come after otherwise they get overridden
-  debugDisplayState();
+  //debugDisplayState();
   //debugDisplayFPS();
 
   cullNonPlayingSounds();
@@ -355,6 +355,8 @@ let initStateOnce = false;
 
 let lastTimeHandDetected = 0;
 const handTimeoutMillis = 1300;
+
+var highScore = 0;
 
 let anythingPressedLastFrame = false;
 function updateStateMachine() {
