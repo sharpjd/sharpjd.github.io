@@ -293,13 +293,20 @@ function draw() {
   gui.update(); //GUI is excluded from pausing
 
   //these two must come after otherwise they get overridden
-  //debugDisplayState();
+  debugDisplayState();
   //debugDisplayFPS();
 
   cullNonPlayingSounds();
   MusicPlayer.update();
 
   updateStaticVariables();//should come last
+
+    //must come at end
+    if(keyIsPressed){
+      anythingPressedLastFrame = true;
+    } else {
+      anythingPressedLastFrame = false;
+    }
 
 }
 
@@ -340,6 +347,7 @@ let initWorldOnce = false;
 let initMenuOnce = false;
 let initCalibrationOnce = false;
 let initTutorialOnce = false;
+let initVideoOnce = false;
 
 let playGameoverOnce = false;
 
@@ -347,6 +355,8 @@ let initStateOnce = false;
 
 let lastTimeHandDetected = 0;
 const handTimeoutMillis = 1300;
+
+let anythingPressedLastFrame = false;
 function updateStateMachine() {
   
   /*
@@ -378,15 +388,19 @@ function updateStateMachine() {
     initWorldOnce = true;
     console.log("loaded game world");
 
-    videoFeed = new VideoFeed(0, 0, 1); 
-    GUI.instance.addGuiObject(videoFeed);
-
     boundaryWarning = new GUIBoundaryWarning(1);
     gui.addGuiObject(boundaryWarning);
     boundaryWarning.show=true;
 
     bg = new BG(-999);
     World.instance.addGameObject(bg);
+  }
+
+  if(!initVideoOnce){
+    videoFeed = new VideoFeed(0, 0, 1); 
+    GUI.instance.addGuiObject(videoFeed);
+
+    initVideoOnce = true;
   }
 
   if(state=="Calibration"){
@@ -491,7 +505,14 @@ function updateStateMachine() {
     gameOverScreen.show=true;
     this.behaviorState = "GameOver";
 
+    if(tutorial != null){
+      tutorial.slatedForDeletion = true;
+      tutorial.activeTutorial.slatedForDeletion = true;
+    }
+      
+
     if(keyIsPressed){//press any key to restart
+    //if(keyIsDown(81)){ //press any key to restart
 
       survivalTimer.slatedForDeletion=true;
       hpBar.slatedForDeletion=true;
@@ -507,16 +528,22 @@ function updateStateMachine() {
       //World.instance.player.supressShooting=false;
       //state = "Playing";
 
+      beginGameOnce = false;
+
       tutorial.slatedForDeletion = true;
 
-      tutorial = new GUITutorial();
-      GUI.instance.addGuiObject(tutorial);
-      state="Tutorial";
+      //tutorial = new GUITutorial();
+      //GUI.instance.addGuiObject(tutorial);
+      //state="Tutorial";
 
-      state = "Tutorial";
+      initCalibrationOnce = false;
+      initTutorialOnce = false;
+      calibrationMenu.slatedForDeletion = true;
+      state = "Calibration";
+
+      Sketch.paused = false;
     }
   }
-
 }
 
 //display the state variable manipulated by the state machine

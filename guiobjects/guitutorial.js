@@ -38,7 +38,7 @@ class GUITutorial extends GUIObject {
         pop();
 
         //if the player decides to skip the tutorial...
-        if(keyIsDown(81)){//Q
+        if(!anythingPressedLastFrame && keyIsDown(81)){//Q
             this.behaviorState = "Finished";
             this.activeTutorial.slatedForDeletion = true;
             this.slatedForDeletion = true;
@@ -179,7 +179,7 @@ class MovementTutorial extends TutorialComponent {
     constructor(depth){
         super("MovementTutorial",0,0,depth);
 
-        this.welcomeTimer = 7000;
+        this.welcomeTimer = 6000;
         this.welcomeCounter = this.welcomeTimer;
 
         this.movementTimer = 15000;
@@ -614,7 +614,7 @@ class LaserEnemyTutorial extends TutorialComponent {
             fill(fillColor);
 
             text("Even if you don't destroy an enemy, they will leave after a while.", width/2, height-130);
-            text("Destroying enemies also restores your hitpoints.", width/2, height-100);
+            text("Destroying enemies also restores your HP.", width/2, height-100);
             text("Destroy as many possible to earn the most points!", width/2, height-70);
             
             text(`${(this.congratsCounter/1000).toFixed(0)}`, width/2, height-50);
@@ -638,7 +638,7 @@ class EndingTutorial extends TutorialComponent {
     constructor(depth){
         super("EndingTutorial",0,0,depth);
 
-        this.congratsTimer = 10000;
+        this.congratsTimer = 8000;
         this.congratsCounter = this.congratsTimer;
 
     }

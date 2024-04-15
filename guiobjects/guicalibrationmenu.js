@@ -12,7 +12,7 @@ class CalibrationMenu extends GUIObject {
 
     update(){
 
-        if(keyIsDown(32)){//space key
+        if(!anythingPressedLastFrame && keyIsDown(32)){//space key
             Sketch.calibrationPoint = World.instance.player.position.copy();
             this.state = "Done";
         }
@@ -31,11 +31,11 @@ class CalibrationMenu extends GUIObject {
 
         textSize(20)
 
-        text("Place your LEFT hand some distance away from the webcam until a handpose is detected and drawn.", width/2, height-150);
-        text("(Check \"Show Video\" to show your webcam feed if you need help locating your hand)", width/2, height-130);
+        text("Place your LEFT hand some distance away from the webcam until a handpose is detected and drawn.", width/2, height-130);
+        text("(Check \"Show Video\" to show your webcam feed if you need help locating your hand)", width/2, height-100);
         
-        text("Then find a comfortable position and center your LEFT hand in", width/2, height-100);
-        text("the rectangular area marked by the line.", width/2, height-80);
+        //text("Then find a comfortable position and center your LEFT hand in", width/2, height-100);
+        //text("the rectangular area marked by the line.", width/2, height-80);
 
         text("Press Spacebar to finish calibration", width/2, height-40);
         text("(Tip: try not to overlap your hand with your face)", width/2, height-20);

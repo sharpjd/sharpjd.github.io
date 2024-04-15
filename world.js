@@ -21,6 +21,7 @@ class World {
 
     update(){
 
+        //console.log("World: update");
         //if(Sketch.paused) return;
 
         let freshGameObjectsList = []; //will be free of objects slated for deletion
