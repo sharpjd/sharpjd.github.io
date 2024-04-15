@@ -32,6 +32,7 @@ class MusicPlayer{
         if(!currentTrack.isPlaying()){
             currentTrack=null;
         }
+        /*
         if(currentTrack==null){
             if(this.isFirstTimePickingMusic){
                 currentTrack = music_Cages; //this is always the first track played
@@ -39,6 +40,22 @@ class MusicPlayer{
                 currentTrack = MusicPlayer.pickRandomTrack();
                 console.log("picking new track");
             }
+            currentTrack.setVolume(0.4);
+            var response = currentTrack.play();
+            if (response!== undefined) {
+                response.then(_ => {
+                    //the sound should start playing
+                    this.isFirstTimePickingMusic = false;
+                }).catch(error => {
+                    //simply handle the rror
+                });
+            }
+        }
+        */
+
+        if(currentTrack==null){
+            currentTrack = MusicPlayer.pickRandomTrack();
+            console.log("picking new track");
             currentTrack.setVolume(0.4);
             var response = currentTrack.play();
             if (response!== undefined) {

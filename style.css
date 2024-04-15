@@ -5,6 +5,10 @@ html, body {
   color: white;
 }
 
+input {
+  
+}
+
 canvas {
   display: block;
 }

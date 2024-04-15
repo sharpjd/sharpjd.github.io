@@ -20,7 +20,7 @@ class VideoFeed extends GUIObject {
             textAlign(LEFT);
             fill(255,255,255);
             textSize(15);
-            text("Show Video", 30, 85);
+            //text("Show Video", 30, 85);
             pop();
         } else {
             showVideoCheckbox.hide();
