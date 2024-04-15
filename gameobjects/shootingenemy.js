@@ -63,8 +63,8 @@ class ShootingEnemy extends GameObject {
         let p = new EnemyProjectile(this.x, this.y);
 
         //point new projectile at player
-        p.movement.velocity.x = cos(heading)*300;
-        p.movement.velocity.y = sin(heading)*300;
+        p.movement.velocity.x = cos(heading)*230;
+        p.movement.velocity.y = sin(heading)*230;
 
         World.instance.addGameObject(p);
     }

@@ -12,7 +12,7 @@ class EnemyProjectile extends Projectile {
 
         this.alreadyDealtDamage = false;
 
-        this.damageAmount = 10;
+        this.damageAmount = 7;
 
         sfx_lowLaser.play(undefined,undefined,undefined,undefined,3);
     }
