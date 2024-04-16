@@ -3,6 +3,7 @@ html, body {
   padding: 0;
   background-color: black;
   color: white;
+  font-family: Verdana, sans-serif;
 }
 
 input {
