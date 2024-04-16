@@ -258,7 +258,7 @@ function setup() {
   //this is specifically chose to fit the hand detection and for gameplay balance; changing may break things
   createCanvas(1000, 480);//this should come before anything that uses height/width
 
-  showVideoCheckbox = createCheckbox("Show Video");
+  showVideoCheckbox = createCheckbox("Show Video (Camera Feed)");
   //@ts-ignore
   //showVideoCheckbox.position(10, 70);
   //@ts-ignore
